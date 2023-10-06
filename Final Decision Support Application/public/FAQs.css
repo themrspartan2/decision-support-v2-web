@@ -1,0 +1,33 @@
+#main { 
+    /*padding-left: 10px;*/
+}
+
+#top {
+    background-color: red;
+    color:aliceblue;
+    padding-bottom: 50px;
+    text-align:left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#Q1 {
+    border-left: 6px solid red;
+    padding-left: 6px;
+    background-color: rgb(249, 228, 232);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+#Q2 {
+    border-left: 6px solid red;
+    padding-left: 6px;
+    background-color: rgb(249, 228, 232);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+p{
+    /*text-indent: 30px;*/
+    padding-left: 20px;
+    padding-bottom: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,32 @@
+﻿TEAM DINOSAUR WORKING AGREEMENT
+
+
+Section 1 | Basic Rules and Guidelines
+-Be on time for meetings
+-Always communicate if something comes up which interrupts workflow
+-Be honest
+-Respect everyone’s time
+-Commit to daily updates
+
+
+Section 2 | Principles of Responsibility
+-Everyone is expected to write code, these roles are in addition to programming:
+-Kyle: Project manager, Application security specialist
+-Hunter: Secretary, repository manager 
+-Aidan B: Client liaison, Webpage designer
+-Aidan L: Database designer
+-Elton: Algorithm designer
+
+
+Section 3 | Communication Tools 
+-Discord will be used for quick communication, voice chatting, and pair programming
+-GitLab will host the code repository and the task board
+-Zoom will hold virtual meetings 
+-Google Drive will be used to share design documents
+
+
+Section 4 | Programming Guidelines
+-Always comment your code to make it as easy to understand as possible
+-Follow standard formatting guidelines (brackets(){, appropriate camelCase and CapitalCase, etc.)
+-Always pull before pushing to minimize merge conflicts
+-Peer review code
