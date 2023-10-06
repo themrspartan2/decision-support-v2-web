@@ -1,0 +1,637 @@
+:root {
+    --loginWidth: 600px;
+    --loginHeight: 400px;
+    --modalWidth: 600px;
+
+    /*Site Colors*/
+    --backgroundColor: #86b3d1; /*site background color*/
+    --textColor: black;
+    --font: helvetica;
+    --cardColor: #474853; /*Color of course and project cards*/
+    --cardTextColor: white; /*Text color of course and project cards*/
+    --gradientStart: #374981; /*For gradient colored boxes*/
+    --gradientEnd: #1f2947;
+    --gradientText: white;
+
+    --tableHeadColor: #1f2947;
+    --tableHeadTextColor: white;
+    --tableEven: #2f3037; /*even table rows*/
+    --tableEvenText: white;
+    --tableOdd: #474853;
+    --tableOddText: white;
+    --studentColor: #253156;  /*for student box divs*/
+    --studentTextColor: white;
+    --studentOutlineColor: black;
+
+    --faqBoxColor: #253156;
+    --faqTextColor: white;
+    --faqActiveColor: #374981;
+}
+
+body {
+	background-color: var(--backgroundColor);
+    color: var(--textColor);
+    font-family: var(--font);
+}
+
+/*for info circles (the little i things)*/
+.div-circle {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+    font-weight: bold;
+    background-color: white;
+    border: 2px outset black;
+    color: black;
+}
+
+.div-circle-sm {
+    width: 25px;
+    height: 25px;
+    line-height: 20px;
+    font-size: 0.9rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 37px auto 0;
+  width: calc(280px * 4);
+}
+
+.card {
+  /* box-shadow: 0 3px 10px 0 #aaa; */
+  cursor: pointer;
+  height: 140px;
+  position: relative;
+  width: 243px;
+  background-color: var(--cardColor);
+  color: var(--cardTextColor);
+}
+
+.card:hover {
+  cursor: hand;
+  cursor: pointer;
+  opacity: .7;
+}
+
+.boxLink {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-decoration: none;  /* Makes sure the link doesn't get underlined */
+  z-index: 10;  /* raises anchor tag above everything else in div */
+  background-color: white;  /*workaround to make clickable in IE */
+  opacity: 0; /*workaround to make clickable in IE */
+  filter: alpha(opacity=0); /*workaround to make clickable in IE */
+}
+
+a {
+  color: #feda75;
+}
+
+.card h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card.visited {
+  box-shadow: 0 3px 10px 2px #444;
+}
+
+@media (max-width: 1100px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+    width: calc(280px * 2);
+  }
+  .card {
+    margin: 0 auto 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards {
+    display: block;
+    width: 100vw;
+  }
+  .card {
+    margin: 0 auto 2rem;
+  }
+}
+
+.betterTable {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+}
+
+.betterTable thead tr {
+  background-color: var(--tableHeadColor);
+  color: var(--tableHeadTextColor);
+  text-align: left;
+}
+
+    .betterTable tbody tr {
+        /*border-bottom: 2px solid #dddddd;*/
+    }
+
+.betterTable tbody tr:nth-of-type(odd) {
+  background-color: var(--tableOdd);
+  color: var(--tableOddText);
+}
+
+.betterTable tbody tr:nth-of-type(even) {
+  background-color: var(--tableEven);
+  color: var(--tableEvenText);
+}
+
+.betterTable th, .betterTable td {
+  padding: 12px 15px;
+}
+
+.algorithmSuccess {
+    border: 5px outset gray;
+    padding: 10px;
+    width: 650px;
+    margin: 0px auto;
+    font-size: 20px;
+    background-image: linear-gradient(to bottom right, var(--gradientStart), var(--gradientEnd));
+    color: var(--gradientText);
+    text-align: center;
+    font-weight: bold;
+}
+
+/*These should make the buttons in the center of the page*/
+.inlineButton {
+    display: inline-block;
+}
+
+.centerText {
+    text-align: center;
+    margin: 20px;
+}
+
+.groupBox {   /* Contains student divs */
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.groupName {
+    float: left;
+    text-align: left;
+    line-height: 90px;
+    padding-right: 20px;
+    border-right: 2px solid gray;
+}
+
+.groupInfo {
+    font-size: 11px;
+}
+
+.studentBox {  /* Draggable student div*/
+  cursor: move;
+  font-size: 20px;
+  vertical-align: middle;
+  display:inline-block;
+  text-align: center;
+  color: var(--studentTextColor);
+  border-radius: .5em;
+  padding: 10px;
+  max-width: 250px;
+}
+
+.fullBox {  /* Box with name*/
+  border: 3px solid var(--studentOutlineColor);
+  background-color: var(--studentColor);
+}
+
+.emptyBox {   /* Empty box for adding to groups*/
+  height: 50px;
+}
+
+.studentBox.over {
+  border: 3px dotted #666;
+}
+
+.center {
+  margin: 10px auto;
+  width: 200px;
+}
+
+/*tooltip i thing*/
+.infoButton {
+    font-weight: bold;
+    font-size: 15px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+/*Options Modal*/
+.modal{
+  /*display: none;*/ /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 20; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modalHeader {
+    max-width: var(--modalWidth);
+    padding: 2px 16px;
+    background-color: #4f5bd5;
+    color: white;
+}
+
+.modalBody {
+    max-width: var(--modalWidth);
+    padding: 2px 16px;
+    background-color: white;
+}
+
+.modalFooter {
+    max-width: var(--modalWidth);
+    padding: 2px 16px;
+    background-color: #4f5bd5;
+    color: white;
+}
+
+.modalContent {
+    max-width: var(--modalWidth);
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+.dropdownOptions li a {
+    color: black;
+    text-decoration: none;
+
+}
+
+.dropdownOptions li a:hover {
+    color: black;
+    text-decoration: none;
+    color: blue;
+}
+
+#numberingNumber {
+    width: 100px;
+}
+
+/*Login rectangle*/
+.outer { /*Used for vertically centering div*/
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.outerInLogin { /*Used for vertically centering form div in login box*/
+    display: table;
+    top: 0;
+    left: 0;
+    height: var(--loginHeight);
+    width: var(--loginWidth);
+}
+
+.padded {
+    padding: 10px;
+}
+
+.center {
+    margin: auto;
+}
+
+#login {
+    background-image: linear-gradient(to bottom, #7579FF, #B224EF);
+    width: var(--loginWidth);
+    height: var(--loginHeight);
+    border-radius: 10px;
+    margin: auto;
+    vertical-align: central;
+    color: white;
+}
+
+#loginBackground {
+    background: url("/images/University.jpg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100%;
+}
+
+.blur {
+    background: rgba(255, 255, 255, 0.1); /*last number is opacity*/
+    backdrop-filter: blur(8px);
+    height: 100vh;
+    width: 100%;
+}
+
+/*concentric circles loader
+/*loader (from https://codepen.io/WebSonata/pen/bRaONB ) */
+/*
+#preloader {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30; 
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #023e8a;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+    #loader:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #0077b6;
+        -webkit-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+    }
+
+    #loader:after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #00b4d8;
+        -webkit-animation: spin 1.5s linear infinite;
+        animation: spin 1.5s linear infinite;
+    }
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+    */
+
+/* for diamond loader */
+/* don't ask how this works, I have no idea */
+/* from https://codepen.io/GeoxCodes/pen/PBoQZa */
+svg {
+    position: fixed;
+    z-index: 100;   /*loader should be on top of everything*/
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.stroke-still {
+    stroke: #232323;
+}
+
+.stroke-animation {
+    -webkit-animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+    animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-delay: 0;
+    animation-delay: 0;
+    -webkit-animation-direction: normal;
+    animation-direction: normal;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+}
+
+@-webkit-keyframes stroke-spacing {
+    0% {
+        stroke-dasharray: 0 200;
+    }
+
+    45% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 200 200;
+    }
+
+    90% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+    }
+
+    100% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+    }
+}
+
+@keyframes stroke-spacing {
+    0% {
+        stroke-dasharray: 0 200;
+    }
+
+    45% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 200 200;
+    }
+
+    90% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+    }
+
+    100% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+    }
+}
+
+@-webkit-keyframes stroke-color {
+    0% {
+        stroke: #3498DB;
+    }
+
+    24% {
+        stroke: #643232;
+    }
+
+    25% {
+        stroke: #327864;
+    }
+
+    49% {
+        stroke: #327864;
+    }
+
+    50% {
+        stroke: #32326e;
+    }
+
+    74% {
+        stroke: #32326e;
+    }
+
+    75% {
+        stroke: #78325a;
+    }
+
+    99% {
+        stroke: #78325a;
+    }
+}
+
+@keyframes stroke-color {
+    0% {
+        stroke: #3498DB;
+    }
+
+    24% {
+        stroke: #643232;
+    }
+
+    25% {
+        stroke: #327864;
+    }
+
+    49% {
+        stroke: #327864;
+    }
+
+    50% {
+        stroke: #32326e;
+    }
+
+    74% {
+        stroke: #32326e;
+    }
+
+    75% {
+        stroke: #78325a;
+    }
+
+    99% {
+        stroke: #78325a;
+    }
+}
+
+/* for FAQ Page*/
+.faqBox{
+    width: 85%;
+    margin: 10px auto;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapseButton {
+    background-color: var(--faqBoxColor);
+    color: var(--faqTextColor);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 30px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active, .collapseButton:hover {
+        background-color: var(--faqActiveColor);
+    }
+
+/* Style the collapsible content. Note: hidden by default */
+.collapsibleContent {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    color: var(--faqTextColor);
+    background-color: var(--faqActiveColor);
+}
+
+.collapseButton:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: var(--faqTextColor);
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
