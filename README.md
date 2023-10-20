@@ -1,33 +1,66 @@
-**Introduction**
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-- The goal of this web-based application is to help instructors in creating student groups for collaborative assignments. By offering a user-friendly and efficient platform, the application will optimize the composition of groups to ensure maximum success for each student involved.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-- This online application will utilize various algorithms to manage students based on their individual traits, such as grades or gender.
+## About Laravel
 
-- The entire project can be integrated in canvas encompasses designing the user interface, creating a database for storing and manipulating data, and developing algorithms for grouping students based on various criteria.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- This document provides a technical overview of the Decision App project. For a general description and additional information about the project, please refers the following document: 
-[**Notes of Capstone Project**](https://docs.google.com/document/d/1m_3SKNWvL6REROrbBukN5rS70Xp-1zkin12SmwUvWvM/edit#heading=h.swmubhsz6gsj)
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-**Implementation**
+## Learning Laravel
 
-- The project consists of three primary components: UI design, algorithms, and database.
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-- The UI design part uses web programming languages such as HTML, CSS, and JavaScript to develop pages and handle user interaction. The PHP Laravel framework manages the model and gives a grand view for controllers. It utilizes the post method through API to obtain the required information. As a developer, we assuming you are already acquainted with HTML, CSS, and JavaScript. You can refer to this document to begin with PHPLaravel:
-[**Laravel Setup Guide**](https://docs.google.com/document/d/1G6mtfgmG5zRr-MdlSoJX8RBOXw0QWUb2loZtxNatwKI/edit)
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-- The general look of web pages:
-[**Initial APP Mockup**](https://drive.google.com/drive/u/0/folders/0AGc0kuuymzhQUk9PVA)
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
+## Laravel Sponsors
 
-- The algorithms are used to merge and divide students based on their traits. More detailed description and pseudocode are provided:
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-- Refers to this page about the Cluster-Gender Algorithm:
-[**Cluster-Gender Algorithm Pseudocode**](https://docs.google.com/document/d/1KmA6voHYKgHTg3F6VCxP4Sw_acpsCpaRfpEn3wRbt4o/edit)
+### Premium Partners
 
-- Refers to this page about the Balance-Grade Algorithm:
-[**Balance-Grade Algorithm Pseudocode**](https://docs.google.com/document/d/1QwxruceLAJOFgDpJiMv5d_6Kxp8sLZt_wQ2TnAgXcR4/edit)
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
 
-- Refers to this page about the Aggregation Algorithm:
-[**Aggregation Algorithm Pseudocode**](https://docs.google.com/document/d/1VwUSEN9f6w-9evQd0IdnzaDTqlTTNyx_rDynHmd4TCs/edi)
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
