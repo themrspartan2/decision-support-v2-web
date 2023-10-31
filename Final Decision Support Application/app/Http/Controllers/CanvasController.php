@@ -460,23 +460,25 @@ class CanvasController extends Controller
     }
 
     /**
-     * Get the date and time 7 days from now in UTC timezone.
-     * 
-     * This function does not take into account daylight savings time.
+     * Get the date and time 7 days from now at 3:59:00, accounting for Eastern Standard Time (EST) and Eastern Daylight Time (EDT).
      *
-     * This function returns a formatted date and time string that represents the date and time 7 days from the current
-     * date and time. The date and time are adjusted based on the default timezone set in the system. The resulting date
-     * and time are converted to the UTC timezone.
+     * This function calculates the date and time 7 days in advance at 3:59:00, considering the daylight saving time changes in the Eastern Time zone (EST/EDT), and then converts it to UTC.
      *
      * @return string The formatted date and time string in the format 'Y-m-d\TH:i:s\Z'.
      */
-    private function getDateIn7Days() {
-        $date = new \DateTime('now', new \DateTimeZone(date_default_timezone_get()));
-        $date->modify('+8 days');
-        $date->setTime(3, 59, 0);
+     private function getDateIn7Days() {
+        // Create a DateTime object in Eastern Time (EST or EDT).
+        $date = new \DateTime('now', new \DateTimeZone('America/New_York'));
+ 
+        // Calculate the target date (7 days in advance) and set the time to 3:59:00.
+        $date->modify('+7 days')->setTime(23, 59, 0);
+
+        // Set the timezone to UTC.
         $date->setTimezone(new \DateTimeZone('UTC'));
+
+        // Return the formatted date and time string.
         return $date->format('Y-m-d\TH:i:s\Z');
-    }
+     }
 
     /**
      * Generate groups of students based on the selected algorithm and parameters.
