@@ -282,7 +282,7 @@ class CanvasController extends Controller
      *
      * This function is responsible for creating data-related questions for the survey. It makes an API request to add a multiple
      * choice question to the specified quiz. The question pertains to gender identification and includes three possible
-     * choices: Male, Female, and Other / prefer not to say. The function also calls the `makeAggQuestions()` method if
+     * choices: Male, Female, and Other. The function also calls the `makeAggQuestions()` method if
      * projects are available, passing the quiz, course ID, and projects as parameters.
      *
      * @param stdClass $quiz The quiz object obtained from creating the quiz.
@@ -290,7 +290,7 @@ class CanvasController extends Controller
      * @param string $projects The projects associated with the survey, or 'none' if no projects are available.
      * @return void
      */
-    private function createDataQuestions($quiz, $courseId, $projects){
+    /*private function createDataQuestions($quiz, $courseId, $projects){
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . Cache::get('key')
         ])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
@@ -309,7 +309,7 @@ class CanvasController extends Controller
                         'weight' => 100
                     ],
                     [
-                        'text' => 'Other / prefer not to say',
+                        'text' => 'Other',
                         'weight' => 100
                     ]
                 ]
@@ -321,6 +321,133 @@ class CanvasController extends Controller
         }
         return;
     }
+	*/
+	
+	/**
+     * Creates data-related questions for the survey.
+     *
+     * This function is responsible for creating data-related questions for the survey. It makes an API request to add * a multiple choice question to the specified quiz. 
+	 * The question one pertains to demographic diversity and includes three possible choices.
+	 * The question two relates to whether you are an international student and includes two possible options.
+	 * The question three 
+     * The function also calls the `makeAggQuestions()` method if
+     * projects are available, passing the quiz, course ID, and projects as parameters.
+     *
+     * @param stdClass $quiz The quiz object obtained from creating the quiz.
+     * @param int $courseId The ID of the course where the quiz is created.
+     * @param string $projects The projects associated with the survey, or 'none' if no projects are available.
+     * @return void
+     
+	*/
+	 /*
+	 private function createDataQuestions($quiz, $courseId, $projects){
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . Cache::get('key')
+        ])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', 
+            $questions = [
+			[
+                'question_name' => 'Population Diversity',
+                'question_text' => 'How would you describe your representation in terms of demographic diversity in your class?',
+                'question_type' => 'multiple_choice_question',
+                'points_possible' => 1,
+                'answers' => [
+                    [
+                        'text' => 'I consider myself a minority.',
+                        'weight' => 100
+                    ],
+                    [
+                        'text' => 'I consider myself part of the dominant group.',
+                        'weight' => 100
+                    ],
+                    [
+                        'text' => 'I\'d rather not reveal it.',
+                        'weight' => 100
+                    ]
+                ]
+            ],
+			
+			[
+                'question_name' => 'International',
+                'question_text' => 'Are you an international or domestic student?',
+                'question_type' => 'multiple_choice_question',
+                'points_possible' => 1,
+                'answers' => [
+                    [
+                        'text' => 'International',
+                        'weight' => 100
+                    ],
+                    [
+                        'text' => 'domestic',
+                        'weight' => 100
+                    ]
+                ]
+            ]
+			
+        ]);
+		
+		if ($projects != 'none') {
+            $this->makeAggQuestions($quiz, $courseId, $projects);
+        }
+        return;
+	 }
+	*/
+	
+	private function createDataQuestions($quiz, $courseId, $projects) {
+		$questions = [
+			[
+				'question_name' => 'Population Diversity',
+				'question_text' => 'How would you describe your representation in terms of demographic diversity in your class?',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => 'I consider myself a minority.',
+						'weight' => 100,
+					],
+					[
+						'text' => 'I consider myself part of the dominant group.',
+						'weight' => 100,
+					],
+					[
+						'text' => 'I\'d rather not reveal it.',
+						'weight' => 100,
+					]
+				]
+			],
+			[
+				'question_name' => 'International',
+				'question_text' => 'Are you an international or domestic student?',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => 'International',
+						'weight' => 100,
+					],
+					[
+						'text' => 'domestic',
+						'weight' => 100,
+					]
+				]
+			],
+		];
+
+		$response = Http::withHeaders([
+			'Authorization' => 'Bearer ' . Cache::get('key')
+		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+			'questions' => $questions,
+		]);
+
+		if ($projects != 'none') {
+			$this->makeAggQuestions($quiz, $courseId, $projects);
+		}
+
+		return; 
+}
+
+
+
+
 
     /**
      * Creates aggregate questions for a quiz based on projects.
