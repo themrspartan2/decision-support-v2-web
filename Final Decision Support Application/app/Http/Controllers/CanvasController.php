@@ -392,58 +392,65 @@ class CanvasController extends Controller
 	 }
 	*/
 	
-	private function createDataQuestions($quiz, $courseId, $projects) {
-		$questions = [
-			[
-				'question_name' => 'Population Diversity',
-				'question_text' => 'How would you describe your representation in terms of demographic diversity in your class?',
-				'question_type' => 'multiple_choice_question',
-				'points_possible' => 1,
-				'answers' => [
-					[
-						'text' => 'I consider myself a minority.',
-						'weight' => 100,
-					],
-					[
-						'text' => 'I consider myself part of the dominant group.',
-						'weight' => 100,
-					],
-					[
-						'text' => 'I\'d rather not reveal it.',
-						'weight' => 100,
-					]
-				]
-			],
-			[
-				'question_name' => 'International',
-				'question_text' => 'Are you an international or domestic student?',
-				'question_type' => 'multiple_choice_question',
-				'points_possible' => 1,
-				'answers' => [
-					[
-						'text' => 'International',
-						'weight' => 100,
-					],
-					[
-						'text' => 'domestic',
-						'weight' => 100,
-					]
-				]
-			],
-		];
+private function createDataQuestions($quiz, $courseId, $projects)
+{
+    // Question 1
+    $response1 = Http::withHeaders([
+        'Authorization' => 'Bearer ' . Cache::get('key')
+    ])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+        'question' => [
+            'question_name' => 'Population Diversity',
+            'question_text' => 'How would you describe your representation in terms of demographic diversity in your class?',
+            'question_type' => 'multiple_choice_question',
+            'points_possible' => 1,
+            'answers' => [
+                [
+                    'text' => 'I consider myself a minority.',
+                    'weight' => 100,
+                ],
+                [
+                    'text' => 'I consider myself part of the dominant group.',
+                    'weight' => 100,
+                ],
+                [
+                    'text' => 'I\'d rather not reveal it.',
+                    'weight' => 100,
+                ],
+            ],
+        ],
+    ]);
 
-		$response = Http::withHeaders([
-			'Authorization' => 'Bearer ' . Cache::get('key')
-		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
-			'questions' => $questions,
-		]);
+    // Question 2
+    $response2 = Http::withHeaders([
+        'Authorization' => 'Bearer ' . Cache::get('key')
+    ])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+        'question' => [
+            'question_name' => 'International',
+            'question_text' => 'Are you an international or domestic student?',
+            'question_type' => 'multiple_choice_question',
+            'points_possible' => 1,
+            'answers' => [
+                [
+                    'text' => 'International',
+                    'weight' => 100,
+                ],
+                [
+                    'text' => 'domestic',
+                    'weight' => 100,
+                ],
+            ],
+        ],
+    ]);
 
-		if ($projects != 'none') {
-			$this->makeAggQuestions($quiz, $courseId, $projects);
-		}
+    
 
-		return; 
+    if ($projects != 'none') {
+        $this->makeAggQuestions($quiz, $courseId, $projects);
+    }
+
+    return;
 }
+
 
 
 
