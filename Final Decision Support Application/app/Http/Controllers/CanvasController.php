@@ -223,7 +223,7 @@ class CanvasController extends Controller
         //$this->checkSurvey($id);
         $surveyName = 'Survey';
         //$surveyName = "{$date->format('Y-m-d\TH:i:s\Z')}";
-        $due = $this->getDateIn7Days();
+        $due = $this->getDateInXDays();
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . Cache::get('key')
@@ -277,50 +277,214 @@ class CanvasController extends Controller
         return view('Course', ['projects'=>$projects]);
     }
 
-    /**
+	
+	/**
      * Creates data-related questions for the survey.
      *
-     * This function is responsible for creating data-related questions for the survey. It makes an API request to add a multiple
-     * choice question to the specified quiz. The question pertains to gender identification and includes three possible
-     * choices: Male, Female, and Other / prefer not to say. The function also calls the `makeAggQuestions()` method if
+     * This function is responsible for creating data-related questions for the survey. It makes an API request to add * a multiple choice question to the specified quiz. 
+	 * The question one pertains to demographic diversity and includes three possible choices.
+	 * The question two relates to whether you are an international student and includes two possible options.
+	 * The question three pertains to available schedule and includes four possible options.
+	 * The question four pertains to available meeting place and includes two possible options.
+	 * The question five pertains to software skills and includes four possible options.
+     * The function also calls the `makeAggQuestions()` method if
      * projects are available, passing the quiz, course ID, and projects as parameters.
      *
      * @param stdClass $quiz The quiz object obtained from creating the quiz.
      * @param int $courseId The ID of the course where the quiz is created.
      * @param string $projects The projects associated with the survey, or 'none' if no projects are available.
      * @return void
-     */
-    private function createDataQuestions($quiz, $courseId, $projects){
+	*/
+	 
+	
+	private function createDataQuestions($quiz, $courseId, $projects) {
+		// Question 1
+		$response1 = Http::withHeaders([
+			'Authorization' => 'Bearer ' . Cache::get('key')
+		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+			'question' => [
+				'question_name' => 'Population Diversity',
+				'question_text' => 'How would you describe your representation in terms of demographic diversity in your class?',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => 'I consider myself a minority.',
+						'weight' => 100,
+					],
+					[
+						'text' => 'I consider myself part of the dominant group.',
+						'weight' => 100,
+					],
+					[
+						'text' => 'I\'d rather not reveal it.',
+						'weight' => 100,
+					],
+				],
+			],
+		]);
+
+		// Question 2
+		$response2 = Http::withHeaders([
+			'Authorization' => 'Bearer ' . Cache::get('key')
+		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+			'question' => [
+				'question_name' => 'International',
+				'question_text' => 'Are you an international or domestic student?',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => 'International',
+						'weight' => 100,
+					],
+					[
+						'text' => 'domestic',
+						'weight' => 100,
+					],
+				],
+			],
+		]);
+		
+		// Question 3
+		$response2 = Http::withHeaders([
+			'Authorization' => 'Bearer ' . Cache::get('key')
+		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+			'question' => [
+				'question_name' => 'Available Schedule',
+				'question_text' => 'What is your available time?',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => 'Morning',
+						'weight' => 100,
+					],
+					[
+						'text' => 'Noon',
+						'weight' => 100,
+					],
+					[
+						'text' => 'Evening',
+						'weight' => 100,
+					],
+					[
+						'text' => 'Night',
+						'weight' => 100,
+					]
+							
+				],
+			],
+		]);
+		
+		// Question 4
+		$response2 = Http::withHeaders([
+			'Authorization' => 'Bearer ' . Cache::get('key')
+		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+			'question' => [
+				'question_name' => 'Meeting Place',
+				'question_text' => 'Meeting Place',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => 'In-Person',
+						'weight' => 100,
+					],
+					[
+						'text' => 'Online',
+						'weight' => 100,
+					],
+				],
+			],
+		]);
+		
+		// Question 5
+		$response2 = Http::withHeaders([
+			'Authorization' => 'Bearer ' . Cache::get('key')
+		])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
+			'question' => [
+				'question_name' => 'Software skills',
+				'question_text' => 'Rate your level of overall software skills',
+				'question_type' => 'multiple_choice_question',
+				'points_possible' => 1,
+				'answers' => [
+					[
+						'text' => '1-expert',
+						'weight' => 100,
+					],
+					[
+						'text' => '2-somewhat skilled',
+						'weight' => 100,
+					],
+					[
+						'text' => '3-beginner with minimum knowledge',
+						'weight' => 100,
+					],
+					[
+						'text' => '4-no knowledge or skill',
+						'weight' => 100,
+					],
+				],
+			],
+		]);
+
+		
+
+		if ($projects != 'none') {
+			$this->makeAggQuestions($quiz, $courseId, $projects);
+		}
+
+		return;
+	}
+
+    /**
+    * Creates a custom multiple-choice question for the survey.
+    *
+    * @param stdClass $quiz The quiz object obtained from creating the quiz.
+    * @param int $courseId The ID of the course where the quiz is created.
+    * @param string $questionName The name of the question.
+    * @param string $questionText The text of the question.
+    * @param string|null $answer1 The first answer choice.
+    * @param string|null $answer2 The second answer choice.
+    * @param string|null $answer3 The third answer choice (default: null).
+    * @param string|null $answer4 The fourth answer choice (default: null).
+    * @return void
+    */
+    private function createCustomQuestion($quiz, $courseId, $questionName, $questionText, $answer1, $answer2, $answer3 = null, $answer4 = null) {
+        $answers = [];
+
+        // Add answer choices with non-null values
+        if ($answer1 !== null) {
+            $answers[] = ['text' => $answer1, 'weight' => 100];
+        }
+        if ($answer2 !== null) {
+            $answers[] = ['text' => $answer2, 'weight' => 100];
+        }
+        if ($answer3 !== null) {
+            $answers[] = ['text' => $answer3, 'weight' => 100];
+        }
+        if ($answer4 !== null) {
+            $answers[] = ['text' => $answer4, 'weight' => 100];
+        }
+
+        // Make API request to add the question
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . Cache::get('key')
         ])->asForm()->post(\Config::get('values.default_canvas_url') . 'courses/' . $courseId . '/quizzes' . '/' . $quiz->id . '/questions', [
             'question' => [
-                'question_name' => 'Gender',
-                'question_text' => 'What gender do you identify as?',
+                'question_name' => $questionName,
+                'question_text' => $questionText,
                 'question_type' => 'multiple_choice_question',
                 'points_possible' => 1,
-                'answers' => [
-                    [
-                        'text' => 'Male',
-                        'weight' => 100
-                    ],
-                    [
-                        'text' => 'Female',
-                        'weight' => 100
-                    ],
-                    [
-                        'text' => 'Other / prefer not to say',
-                        'weight' => 100
-                    ]
-                ]
+                'answers' => $answers,
             ]
         ]);
-
-        if ($projects != 'none') {
-            $this->makeAggQuestions($quiz, $courseId, $projects);
-        }
-        return;
     }
+
+
+
+
 
     /**
      * Creates aggregate questions for a quiz based on projects.
@@ -460,25 +624,25 @@ class CanvasController extends Controller
     }
 
     /**
-     * Get the date and time 7 days from now at 3:59:00, accounting for Eastern Standard Time (EST) and Eastern Daylight Time (EDT).
+     * Get the date and time X days from now in UTC timezone.
+     * 
+     * This function does not take into account daylight savings time.
      *
-     * This function calculates the date and time 7 days in advance at 3:59:00, considering the daylight saving time changes in the Eastern Time zone (EST/EDT), and then converts it to UTC.
+     * This function returns a formatted date and time string that represents the date and time X days from the current
+     * date and time. The date and time are adjusted based on the default timezone set in the system. The resulting date
+     * and time are converted to the UTC timezone.
+     *
+     *@param x Number of days from current date when the submission is to be *due.
      *
      * @return string The formatted date and time string in the format 'Y-m-d\TH:i:s\Z'.
      */
-     private function getDateIn7Days() {
-        // Create a DateTime object in Eastern Time (EST or EDT).
-        $date = new \DateTime('now', new \DateTimeZone('America/New_York'));
- 
-        // Calculate the target date (7 days in advance) and set the time to 3:59:00.
-        $date->modify('+7 days')->setTime(23, 59, 0);
-
-        // Set the timezone to UTC.
-        $date->setTimezone(new \DateTimeZone('UTC'));
-
-        // Return the formatted date and time string.
-        return $date->format('Y-m-d\TH:i:s\Z');
-     }
+    private function getDateInXDays(int $x = 8): string {
+    $date = new \DateTime('now', new \DateTimeZone(date_default_timezone_get()));
+    $date->modify('+' . $x . ' days');
+    $date->setTime(3, 59, 0);
+    $date->setTimezone(new \DateTimeZone('UTC'));
+    return $date->format('Y-m-d\TH:i:s\Z');
+}
 
     /**
      * Generate groups of students based on the selected algorithm and parameters.
